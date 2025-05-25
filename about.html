@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahil Singh | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Tektur:wght@400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0f0c29;
+            --secondary-color: #302b63;
+            --accent-color: #8a2be2;
+            --text-light: #ffffff;
+            --text-dark: #1a1a2e;
+            --gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --highlight-gradient: linear-gradient(135deg, #8a2be2, #5643cc);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--gradient);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Dynamic Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: -2;
+            filter: blur(8px);
+        }
+
+        /* Animated Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+            pointer-events: none;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+
+            25% {
+                transform: translateY(-50px) translateX(20px);
+            }
+
+            50% {
+                transform: translateY(-20px) translateX(50px);
+            }
+
+            75% {
+                transform: translateY(-40px) translateX(20px);
+            }
+        }
+
+        /* Wrapper and Navigation */
+        .wrapper {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            padding: 1.5rem 0;
+            background: rgba(15, 12, 41, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Transition Effect */
+        .transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            clip-path: circle(100% at 50% 50%);
+            transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .transition.is-active {
+            clip-path: circle(0% at 50% 50%);
+        }
+
+        .screen-name {
+            font-family: 'Tektur', cursive;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ffffff, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pulse 1.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.7;
+                text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+            }
+
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* About Section */
+        .about {
+            margin: 1rem 0 3rem;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            position: relative;
+            background: rgba(27, 22, 50, 0.4);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .about-container::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            top: 0;
+            left: 0;
+            background: var(--highlight-gradient);
+            animation: shine 3s infinite linear;
+            background-size: 200% 100%;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Profile Image Section */
+        .about-profile {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-pic {
+            width: 220px;
+            height: 220px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            animation: float-profile 6s infinite ease-in-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes float-profile {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(2deg);
+            }
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05) translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.4);
+        }
+
+        /* Profile Glow Effect */
+        .profile-pic::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, rgba(27, 22, 50, 0) 70%);
+            z-index: -1;
+            border-radius: 30px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .profile-pic:hover::after {
+            opacity: 1;
+        }
+
+        /* Animated Face */
+        .animated-face2 {
+            position: absolute;
+            top: -25%;
+            right: 5%;
+            width: 120px;
+            height: 120px;
+            background: rgba(30, 25, 55, 0.7);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+            animation: bounce 4s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .eyes-container2 {
+            display: flex;
+            justify-content: space-between;
+            width: 60%;
+            margin-top: 10px;
+        }
+
+        .eyes2 {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pupil2 {
+            width: 10px;
+            height: 10px;
+            background: black;
+            border-radius: 50%;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .mouth2 {
+            width: 40px;
+            height: 15px;
+            border-bottom: 3px solid white;
+            border-radius: 0 0 20px 20px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message {
+            position: absolute;
+            top: -20px;
+            left: -100px;
+            width: 100px;
+            font-size: 0.6rem;
+            color: white;
+            background: rgba(138, 43, 226, 0.8);
+            padding: 5px 10px;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .mouth2:hover .message {
+            opacity: 1;
+            transform: translateY(0);
+            left: -140px;
+        }
+
+        /* About Content */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-content h2 {
+            font-family: 'Tektur', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(45deg, #ffffff, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: slideFromRight 1s ease-out;
+        }
+
+        #about-name {
+            color: var(--accent-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        #about-name::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: var(--highlight-gradient);
+            animation: expand 3s infinite;
+        }
+
+        @keyframes expand {
+
+            0%,
+            100% {
+                width: 0;
+                left: 0;
+            }
+
+            50% {
+                width: 100%;
+                left: 0;
+            }
+        }
+
+        #typing-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #c8c8c8;
+            margin-bottom: 1.5rem;
+            position: relative;
+            animation: slideFromRight 1.2s ease-out;
+            border-right: 3px solid var(--accent-color);
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 3.5s steps(40, end) 0.5s forwards, blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: var(--accent-color);
+            }
+        }
+
+        .about-description {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            animation: fadeIn 1.5s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-description strong {
+            color: var(--accent-color);
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-description strong::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            bottom: -2px;
+            left: 0;
+            background: rgba(138, 43, 226, 0.3);
+            border-radius: 5px;
+        }
+
+        /* Animations */
+        @keyframes slideFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes highlight {
+            0% {
+                background-position: -100% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-family: 'Tektur', cursive;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-profile {
+                order: -1;
+                margin-bottom: 1rem;
+            }
+
+            .animated-face2 {
+                top: 30px;
+                right: 10px;
+                width: 90px;
+                height: 90px;
+            }
+
+            .profile-pic {
+                width: 180px;
+                height: 180px;
+            }
+
+            .about-content h2 {
+                font-size: 1.8rem;
+            }
+
+            #typing-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .nav a {
+                margin: 0 1rem;
+                font-size: 0.9rem;
+            }
+
+            .about-container {
+                padding: 1.5rem;
+            }
+
+            .about-content h2 {
+                font-size: 1.6rem;
+            }
+
+            #typing-text {
+                font-size: 1.1rem;
+                white-space: normal;
+                animation: fadeIn 1.5s ease-out;
+                border-right: none;
+            }
+
+
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                padding: 1rem 0;
+            }
+
+            .nav a {
+                margin: 0 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .about-container {
+                padding: 1.2rem;
+            }
+
+            .profile-pic {
+                width: 150px;
+                height: 150px;
+            }
+
+            .about-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .about-description {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body data-barba="wrapper">
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Transition Effect -->
+    <div class="transition">
+        <div class="screen-name" id="screenName">Loading...</div>
+    </div>
+
+    <div class="wrapper">
+        <!-- Navigation - Kept as original -->
+        <div class="nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <main data-barba="container" data-barba-namespace="home" class="container">
+            <section id="about" class="about">
+                <div class="about-container">
+                    <div class="about-profile">
+                        <img src="assets/Profile.jpg" alt="Sahil Singh" class="profile-pic" id="profile-image">
+                    </div>
+
+                    <div class="about-content">
+                        <h2>👨‍💻 About <span id="about-name">Sahil सिंह</span></h2>
+                        <p id="typing-text">I am a Frontend Developer & Cybersecurity Learner</p>
+                        <p class="about-description">
+                            A passionate frontend developer skilled in crafting responsive, user-friendly web interfaces
+                            using
+                            <strong>HTML, CSS, JavaScript</strong>, and modern frameworks like <strong>React js</strong>. Simultaneously exploring the
+                            world of
+                            <strong>cybersecurity</strong> to understand digital threats, enhance web security, and
+                            build safer
+                            applications.
+                            Blending design, code, and protection to create seamless and secure user experiences.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <footer>Experience is the name<br>everyone gives to their mistakes. - <strong>John Johnson</strong></footer>
+        </main>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+
+    <script>
+        // Create animated particles for background
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 20;
+            const colors = ['#8a2be2', '#5643cc', '#7b68ee', '#4a3b8f'];
+
+            for (let i = 0; i < particleCount; i++) {
+                const size = Math.random() * 8 + 3;
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(particle);
+            }
+        }
+
+        // Interactive eyes that follow cursor
+        document.addEventListener('mousemove', function (e) {
+            const pupils = document.querySelectorAll('.pupil2');
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            pupils.forEach(pupil => {
+                const rect = pupil.getBoundingClientRect();
+                const centerX = rect.left + (rect.width / 2);
+                const centerY = rect.top + (rect.height / 2);
+
+                // Calculate the distance
+                const deltaX = mouseX - centerX;
+                const deltaY = mouseY - centerY;
+
+                // Limit movement range
+                const maxMove = 5;
+                const moveX = Math.max(-maxMove, Math.min(maxMove, deltaX / 15));
+                const moveY = Math.max(-maxMove, Math.min(maxMove, deltaY / 15));
+
+                pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+
+        // Profile image hover effect
+        const profileImage = document.getElementById('profile-image');
+        if (profileImage) {
+            profileImage.addEventListener('mouseover', function () {
+                this.style.transform = 'scale(1.05) rotate(2deg)';
+            });
+
+            profileImage.addEventListener('mouseout', function () {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        }
+
+        // Page transition animation
+        document.addEventListener('DOMContentLoaded', function () {
+            // Create particles
+            createParticles();
+
+            // Update loading text
+            document.getElementById('screenName').textContent = 'About Me';
+
+            // Remove transition overlay
+            setTimeout(() => {
+                document.querySelector('.transition').classList.add('is-active');
+            }, 1000);
+
+            // Initialize BarbaJS for page transitions
+            if (window.barba) {
+                barba.init({
+                    transitions: [{
+                        name: 'opacity-transition',
+                        leave(data) {
+                            return gsap.to(data.current.container, {
+                                opacity: 0,
+                                duration: 0.5
+                            });
+                        },
+                        enter(data) {
+                            return gsap.from(data.next.container, {
+                                opacity: 0,
+                                duration: 0.5
+                            });
+                        }
+                    }]
+                });
+            }
+        });
+    </script>
+</body>
